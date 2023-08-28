@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { users } from 'src/drizzle/schema';
+import { accounts, users } from 'src/drizzle/schema';
 
 export type User = any;
 
@@ -19,9 +19,21 @@ export class UsersService {
     if (user) {
       return undefined;
     }
-    const newUser = await this.db.insert(users).values({ email: username, password, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()});
+    const _newUser = await this.db.insert(users).values({ email: username, password, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()});
+    const [newUserAccount] = await this.db.select().from(users).where(eq(users.email, username));
 
-    return newUser;
+    return newUserAccount;
+  }
+
+  async createAccount(userId: number): Promise<User | undefined> {
+    console.log({ userId})
+    const [user] = await this.db.select().from(users).where(eq(users.id, userId));
+    if (!user) {
+      return undefined;
+    }
+    const newAccount = await this.db.insert(accounts).values({ userId, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()});
+
+    return newAccount;
   }
 }
 

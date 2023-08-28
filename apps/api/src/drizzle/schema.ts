@@ -8,7 +8,7 @@ export const users = pgTable('users', {
   updatedAt: text('updated_at'),
 });
 
-export const account = pgTable('accounts', {
+export const accounts = pgTable('accounts', {
   id: serial('id').primaryKey(),
   userId: serial('user_id').references(() => users.id),
   name: varchar('name', { length: 255 }),
@@ -16,9 +16,9 @@ export const account = pgTable('accounts', {
   updatedAt: text('updated_at'),
 });
 
-export const wallet = pgTable('wallets', {
+export const wallets = pgTable('wallets', {
   id: serial('id').primaryKey(),
-  accountId: serial('account_id').references(() => account.id),
+  accountId: serial('account_id').references(() => accounts.id),
   name: varchar('name', { length: 255 }),
   address: varchar('address', { length: 255 }),
   isOld: boolean('is_old').default(false),

@@ -36,6 +36,7 @@ export class AuthService {
     if (!newUser) {
       throw new UnauthorizedException();
     }
+    const _newAccount = await this.usersService.createAccount(newUser.id);
     const payload = { sub: newUser.userId, username: newUser.username, user: newUser };
     return {
       access_token: await this.jwtService.signAsync(payload),
