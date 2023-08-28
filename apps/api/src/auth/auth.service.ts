@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async signIn(user: any) {
-    const payload = { sub: user.userId, username: user.username };
+    const payload = { sub: user.userId, username: user.username, user };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
@@ -36,7 +36,7 @@ export class AuthService {
     if (!newUser) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: newUser.userId, username: newUser.username };
+    const payload = { sub: newUser.userId, username: newUser.username, user: newUser };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
