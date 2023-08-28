@@ -1,4 +1,4 @@
-import { boolean, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { boolean, numeric, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -30,7 +30,7 @@ export const currency = pgTable('currencies', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }),
   symbol: varchar('symbol', { length: 255 }),
-  price: varchar('price', { length: 255 }),
+  price: numeric('price'),
   createdAt: text('created_at'),
   updatedAt: text('updated_at'),
 });

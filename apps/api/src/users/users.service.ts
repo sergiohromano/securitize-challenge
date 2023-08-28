@@ -26,7 +26,6 @@ export class UsersService {
   }
 
   async createAccount(userId: number): Promise<User | undefined> {
-    console.log({ userId})
     const [user] = await this.db.select().from(users).where(eq(users.id, userId));
     if (!user) {
       return undefined;

@@ -32,7 +32,6 @@ export default  NextAuth({
 
         // If no error and we have user data, return it
         if (res.ok && user) {
-          console.log('logged user', user)
           return user
         }
         // Return null if user data could not be retrieved
@@ -50,13 +49,12 @@ export default  NextAuth({
       return token
     },
     async session({ session, token }) {
-      const accessToken = token.token.user.access_token;
+      const accessToken = token.token.user?.access_token || token.user?.access_token;
       session.accessToken = accessToken;
       const res = await fetch(`${API_URL}/auth/profile`, {
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${accessToken}` }
       })
       const profile = await res.json()
-      console.log('profile', profile)
       session.user = profile
       return session
     }

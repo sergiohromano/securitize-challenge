@@ -1,17 +1,6 @@
 export const Layout = ({ children }) => {
-  const navbar = (
-    <nav>
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-      </ul>
-    </nav>
-  )
-
-
   return (
-    <div>
-      {navbar}
+    <div className="flex flex-col justify-center items-center">
       {children}
     </div>
   )

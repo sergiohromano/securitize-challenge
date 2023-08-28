@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { Dashboard } from "../components/dashboard";
+import { Layout } from "../components/layout";
 import { LoginButton } from "../components/login-btn";
 
 const Home: NextPage = () => {
@@ -13,12 +14,12 @@ const Home: NextPage = () => {
     }
   }, [session])
   return (
-    <>
+    <Layout>
       <LoginButton />
       {!!session && (
         <Dashboard />
       )}
-    </>
+    </Layout>
   )
 };
 
